@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+// Define a estrutura do nó
+struct No {
+    int dado;
+    struct No* prox;
+    struct No* prev;
+};
+// Função para criar um novo nó
+struct No* novoNo(int dado) {
+    struct No* no = (struct No*)malloc(sizeof(struct No));
+
+    no->dado = dado;
+    no->prox = NULL;
+    no->prev = NULL;
+    return no;
+}
+// Complete a Função para inserir um nó no início da lista
+void inserirNoInicio(struct No** cabeca, int dado) {
+    struct No* no = novoNo(dado);
+    no->prox = *cabeca;
+    if (*cabeca != NULL) {
+        (*cabeca)->prev = no;
+ }
+    *cabeca = no;
+}
+// Complete a Função para exibir a lista do inicio até o final
+void exibirLista(struct No* no) {
+    while (no != NULL) {
+        printf("%d ", no->dado);
+        no = no->prox;
+ }
+} 
+
+// Complete a Função para exibir a lista invertida(final até o inicio)
+
+void exibirLista_inv(struct No* no) {
+    if (no == NULL) return;
+    while (no->prox != NULL) {
+     no = no->prox;
+    }
+    while (no != NULL) {
+     printf("%d ", no->dado);
+     no = no->prev;
+    }
+}
+
+// Função principal
+int main() {
+    struct No* cabeca = NULL;
+    inserirNoInicio(&cabeca, 10);
+    inserirNoInicio(&cabeca, 20);
+    inserirNoInicio(&cabeca, 30);
+    printf("Conteúdo da lista duplamente encadeada: ");
+    exibirLista(cabeca);
+    printf("\n");
+    exibirLista_inv(cabeca);
+    printf("\n");
+    return 0;
+}
